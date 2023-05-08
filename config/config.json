@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "Duythanh1",
-    "database": "money_db",
+    "database": "tb_sneaker_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
