@@ -10,6 +10,7 @@ const handleSignUp = async (req, res) => {
       },
       { fields: ['user_name', 'password'] }
     );
+
     res.status(200).json({ data: user, message: 'Success' });
   } catch (error) {
     console.log(error);

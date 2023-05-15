@@ -28,7 +28,17 @@ db.Sequelize = Sequelize;
 const productModal = require('./productModal');
 db.products = productModal(sequelize, Sequelize.DataTypes);
 
-const imageModal = require();
+const productGroupModel = require('./productGroupModel');
+db.productGroups = productGroupModel(sequelize, Sequelize.DataTypes);
+
+const orderModel = require('./orderModel');
+db.orders = orderModel(sequelize,Sequelize.DataTypes)
+
+const orderDetails = require('./orderDetailsModel');
+db.orderDetails = orderDetails(sequelize,Sequelize.DataTypes)
+
+const imageModal = require('./imageModel');
+db.image = imageModal(sequelize, Sequelize.DataTypes);
 
 db.sequelize.sync({ force: false });
 
