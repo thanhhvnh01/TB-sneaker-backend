@@ -26,5 +26,6 @@ router.get('/orders', orderController.handleGetAllOrder)
 router.get('/orders/:orderId', orderController.handleGetOrderDetailById)
 router.post('/create/subs', orderController.handleCreateSubs)
 router.get('/subs', orderController.handleGetAllSubs)
+router.post('/create/brand', orderController.handleCreateBrand)
 // update product, product group,
 module.exports = router;

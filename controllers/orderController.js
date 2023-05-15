@@ -42,6 +42,21 @@ const handleGetBrandId = async (req, res) => {
     }
 }
 
+const handleCreateBrand = async (req, res) => {
+    const { brandName } = req.body
+    try {
+        await sequelize.query(
+            `INSERT INTO brands (brand_name) VALUES ('${brandName}')`,
+            { type: QueryTypes.INSERT }
+        )
+        res.status(200).json({ message: "okay" })
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ message: "NOT OK" })
+    }
+}
+
 const handleCreateOrder = async (req, res) => {
     const { customerName, products, address, email, phoneNumber, totalPrice, note } = req.body
     try {
@@ -138,7 +153,8 @@ module.exports = {
     handleGetOrderDetailById: handleGetOrderDetailById,
     handleGetBrandId: handleGetBrandId,
     handleCreateSubs: handleCreateSubs,
-    handleGetAllSubs: handleGetAllSubs
+    handleGetAllSubs: handleGetAllSubs,
+    handleCreateBrand: handleCreateBrand
     // get
     // get details  
 }
