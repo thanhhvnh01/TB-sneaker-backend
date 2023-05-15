@@ -17,13 +17,14 @@ router.get(
   '/product-groups/:productGroupId',
   productController.handleGetProductGroupById
 );
-router.post('/create/product-groups',productController.handleCreateProductGroup)
+router.post('/create/product-groups', productController.handleCreateProductGroup)
+router.put('/update/product/:productId', productController.handleUpdateProduct)
 // * order
 router.post('/order-create', orderController.handleCreateOrder)
 router.get('/brands', orderController.handleGetBrandId)
-router.get('/orders',orderController.handleGetAllOrder)
-router.get('/orders/:orderId',orderController.handleGetOrderDetailById)
-router.post('/create/subs',orderController.handleCreateSubs)
-router.get('/subs',orderController.handleGetAllSubs)
-
+router.get('/orders', orderController.handleGetAllOrder)
+router.get('/orders/:orderId', orderController.handleGetOrderDetailById)
+router.post('/create/subs', orderController.handleCreateSubs)
+router.get('/subs', orderController.handleGetAllSubs)
+// update product, product group,
 module.exports = router;

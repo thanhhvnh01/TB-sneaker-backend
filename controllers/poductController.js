@@ -5,7 +5,7 @@ const db = require('../models');
 const handleGetAllProduct = async (req, res) => {
   try {
     const products = await sequelize.query(
-      'SELECT * FROM `products` JOIN `brands` on products.brand_id = brands.brand_id',
+      'SELECT * FROM `products`',
       {
         type: QueryTypes.SELECT,
       }
@@ -121,7 +121,6 @@ const handleGetProductById = async (req, res) => {
         'product_name',
         'product_group_id',
         'size',
-        'brand_id',
         'quantity'
       ],
       where: { product_id: productId },
@@ -134,7 +133,7 @@ const handleGetProductById = async (req, res) => {
 
 // create product
 const handleCreateProduct = async (req, res) => {
-  const { productName, brandId, size, productGroupId, color, price } = req.body;
+  const { productName, quantity, size, productGroupId, } = req.body;
 
   try {
     const product = await db.products.create(
@@ -142,16 +141,13 @@ const handleCreateProduct = async (req, res) => {
         product_name: productName,
         product_group_id: productGroupId,
         size: size,
-        brand_id: brandId,
-        color: color,
-        price: price,
+        quantity: quantity,
       },
       {
         fields: [
           'product_name',
           'product_group_id',
           'size',
-          'brand_id',
           'quantity'
         ],
       }
@@ -205,11 +201,29 @@ const handleCreateProductGroup = async (req, res) => {
   }
 }
 
-// const handleGetProductGroup = async (req, res) => {
-//   try {
-//     const products = await sequelize.query();
-//   } catch (error) {}
-// };
+const handleUpdateProduct = async (req, res) => {
+  const { productName, quantity, size, productGroupId, } = req.body;
+  const productId = req.params.productId
+  try {
+    const product = await db.products.update(
+      {
+        product_name: productName,
+        product_group_id: productGroupId,
+        size: size,
+        quantity: quantity,
+      },
+      { where: { product_id: productId } }
+    );
+    
+    res.status(200).json({ data: product, message: 'Success' });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: error,
+    });
+  }
+}
+
 
 module.exports = {
   handleGetAllProduct: handleGetAllProduct,
@@ -218,7 +232,8 @@ module.exports = {
   handleGetAllProductGroup: handleGetAllProductGroup,
   handleGetAllProductGroupId: handleGetAllProductGroupId,
   handleGetProductGroupById: handleGetProductGroupById,
-  handleCreateProductGroup: handleCreateProductGroup
+  handleCreateProductGroup: handleCreateProductGroup,
+  handleUpdateProduct: handleUpdateProduct
   // deleteProductById
   // updateProductById
 };
